@@ -1,27 +1,14 @@
-function calculateTotal() {
-  const prices = Array.from(document.querySelectorAll('[data-ns-test="prices"]')).map((price) => parseFloat(price.textContent));
-  const grandTotal = document.querySelector('[data-ns-test="grandTotal"]');
-  
-  // Check if the number of prices is correct
-  if (prices.length !== 4) {
-    console.error('Incorrect number of prices');
-    return;
-  }
-  
-  const totalPrice = prices.reduce((acc, price) => acc + price, 0);
-  
-  // Check if the total price is correct
-  if (totalPrice !== parseFloat(grandTotal.textContent)) {
-    console.error('Incorrect total price');
-    return;
-  }
-  
-  // Add a new row to the table with the total price
-  const newRow = document.createElement('tr');
-  const newCell = document.createElement('td');
-  newCell.textContent = `Total: ${totalPrice.toFixed(2)}`;
-  newRow.appendChild(newCell);
-  grandTotal.parentElement.parentElement.appendChild(newRow);
-}
+const priceElements = document.querySelectorAll('[data-ns-test="price"]');
 
-calculateTotal();
+// Initialize a variable to store the total price
+let totalPrice = 0;
+
+// Loop through each price element and add its value to the total price
+priceElements.forEach((element) => {
+  totalPrice += Number(element.textContent);
+});
+
+// Set the total price in the table
+const totalElement = document.querySelector('[data-ns-test="grandTotal"]');
+totalElement.textContent = totalPrice;
+
